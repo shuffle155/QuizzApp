@@ -1,7 +1,9 @@
 package com.bts.quizzapp;
 
 import com.bts.utils.MyAlertSingleton;
-import com.bts.utils.ThemeTypes;
+import com.bts.utils.themes.LightFactory;
+import com.bts.utils.themes.ThemeManager;
+import com.bts.utils.themes.ThemeTypes;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -33,18 +35,6 @@ public class PrimaryController implements Initializable {
     }
 
     public void changeTheme(ActionEvent act) {
-        switch (this.cbThemes.getSelectionModel().getSelectedItem()) {
-            case LIGHT:
-                this.cbThemes.getScene().getRoot().getStylesheets().clear();
-                this.cbThemes.getScene().getRoot().getStylesheets().add(App.class.getResource("lighttheme.css").toExternalForm());
-                break;
-            case DARK:
-                this.cbThemes.getScene().getRoot().getStylesheets().clear();
-                this.cbThemes.getScene().getRoot().getStylesheets().add(App.class.getResource("darktheme.css").toExternalForm());
-                break;
-            default:
-                this.cbThemes.getScene().getRoot().getStylesheets().clear();
-                this.cbThemes.getScene().getRoot().getStylesheets().add(App.class.getResource("style.css").toExternalForm());
-        }
+        this.cbThemes.getSelectionModel().getSelectedItem().updateTheme(this.cbThemes.getScene());
     }
 }
