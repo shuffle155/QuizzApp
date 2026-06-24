@@ -1,9 +1,9 @@
 package com.bts.quizzapp;
 
 import com.bts.utils.MyAlertSingleton;
-import com.bts.utils.themes.LightFactory;
-import com.bts.utils.themes.ThemeManager;
+import com.bts.utils.MyStageSingleton;
 import com.bts.utils.themes.ThemeTypes;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -17,8 +17,8 @@ public class PrimaryController implements Initializable {
     @FXML
     private ComboBox<ThemeTypes> cbThemes;
 
-    public void manageQuestion(ActionEvent act) {
-        MyAlertSingleton.getInstance().showMessage("1 Coming soon...");
+    public void manageQuestion(ActionEvent act) throws IOException {
+        MyStageSingleton.getInstance().showStage("questions");
     }
 
     public void practice(ActionEvent act) {
