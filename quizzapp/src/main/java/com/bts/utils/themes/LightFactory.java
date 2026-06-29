@@ -16,5 +16,5 @@ public class LightFactory extends ThemeAbstractFactory {
     public String getStyleSheet() {
         return App.class.getResource("lighttheme.css").toExternalForm();
     }
-    
+
 }

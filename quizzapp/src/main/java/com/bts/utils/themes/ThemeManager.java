@@ -4,7 +4,6 @@
  */
 package com.bts.utils.themes;
 
-import com.bts.quizzapp.App;
 import javafx.scene.Scene;
 
 /**

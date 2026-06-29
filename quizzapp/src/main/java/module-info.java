@@ -6,4 +6,5 @@ module com.bts.quizzapp {
 
     opens com.bts.quizzapp to javafx.fxml;
     exports com.bts.quizzapp;
+    exports com.bts.pojo;
 }

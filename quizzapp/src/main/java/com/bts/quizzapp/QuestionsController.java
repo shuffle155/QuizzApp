@@ -5,14 +5,11 @@
 package com.bts.quizzapp;
 
 import com.bts.pojo.Category;
+import com.bts.pojo.Question;
 import com.bts.services.CategoryServices;
-import com.bts.utils.MyConnectionSingleton;
+import com.bts.services.question.QuestionServices;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,6 +17,9 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * FXML Controller class
@@ -30,6 +30,8 @@ public class QuestionsController implements Initializable {
 
     @FXML
     private ComboBox<Category> cbCates;
+    @FXML
+    private TableView<Question> tvQuestions;
 
     /**
      * Initializes the controller class.
@@ -40,10 +42,23 @@ public class QuestionsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         CategoryServices c = new CategoryServices();
+        QuestionServices q = new QuestionServices();
+        this.loadColumns();
         try {
             this.cbCates.setItems(FXCollections.observableArrayList(c.getCates()));
+            this.tvQuestions.setItems(FXCollections.observableArrayList(q.getQuestion()));
         } catch (SQLException ex) {
             Logger.getLogger(QuestionsController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void loadColumns() {
+        TableColumn colId = new TableColumn("Id");
+        colId.setCellValueFactory(new PropertyValueFactory("id"));
+        colId.setPrefWidth(100);
+        TableColumn colContent = new TableColumn("Content");
+        colContent.setCellValueFactory(new PropertyValueFactory("content"));
+        colContent.setPrefWidth(300);
+        this.tvQuestions.getColumns().addAll(colId, colContent);
     }
 }

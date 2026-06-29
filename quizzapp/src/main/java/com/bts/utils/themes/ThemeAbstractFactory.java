@@ -9,5 +9,6 @@ package com.bts.utils.themes;
  * @author Thanh Son
  */
 public abstract class ThemeAbstractFactory {
+
     public abstract String getStyleSheet();
 }
