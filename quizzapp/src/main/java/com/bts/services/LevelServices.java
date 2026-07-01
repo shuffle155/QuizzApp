@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.bts.services.question;
+package com.bts.services;
 
-import com.bts.pojo.Question;
+import com.bts.pojo.Level;
 import com.bts.utils.MyConnectionSingleton;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,23 +15,22 @@ import java.util.List;
 
 /**
  *
- * @author Thanh Son
+ * @author admin
  */
-public class QuestionServices {
+public class LevelServices {
 
-    public List<Question> getQuestion() throws SQLException {
+    public List<Level> getLevels() throws SQLException {
         Connection conn = MyConnectionSingleton.getInstance().connect();
-        String sql = "SELECT * FROM question ORDER BY id DESC";
+        String sql = "SELECT * FROM level";
         PreparedStatement stm = conn.prepareCall(sql);
         ResultSet res = stm.executeQuery();
-        List<Question> questions = new ArrayList<>();
+        List<Level> levels = new ArrayList<>();
 
         while (res.next()) {
             int id = res.getInt("id");
-            String content = res.getString("content");
-            System.out.printf("%d - %s\n", id, content);
-            questions.add(new Question.Builder().setId(id).setContent(content).build());
+            String name = res.getString("name");
+            levels.add(new Level(id, name));
         }
-        return questions;
+        return levels;
     }
 }

@@ -10,6 +10,8 @@ package com.bts.pojo;
  */
 public class Level {
 
+    public static java.util.logging.Level SEVERE;
+
     public Level(int id, String name) {
         this.id = id;
         this.name = name;
@@ -47,4 +49,10 @@ public class Level {
     }
     private int id;
     private String name;
+
+    @Override
+    public String toString() {
+        return this.name; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+
 }

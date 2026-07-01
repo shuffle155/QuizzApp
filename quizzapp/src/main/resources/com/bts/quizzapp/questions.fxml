@@ -1,16 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="Container" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bts.quizzapp.QuestionsController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="526.0" prefWidth="725.0" styleClass="Container" stylesheets="@style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bts.quizzapp.QuestionsController">
     <children>
         <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Subject" text="Quản lý câu hỏi" />
-        <TextArea prefHeight="116.0" prefWidth="600.0" />
-        <ComboBox fx:id="cbCates" prefWidth="150.0" styleClass="Button" />
+        <TextArea fx:id="txtContent" prefHeight="116.0" prefWidth="600.0" promptText="Nội dung câu hỏi..." />
+      <HBox prefHeight="66.0" prefWidth="705.0" styleClass="Container">
+         <children>
+              <ComboBox fx:id="cbCates" prefWidth="150.0" promptText="Danh mục" styleClass="Button" />
+            <ComboBox fx:id="cbLevels" prefWidth="150.0" promptText="Mức độ" styleClass="Button" />
+         </children>
+      </HBox>
+      <VBox fx:id="vChoices" prefHeight="123.0" prefWidth="679.0">
+         <children>
+            <HBox prefHeight="47.0" prefWidth="679.0" styleClass="Container">
+               <children>
+                  <RadioButton mnemonicParsing="false" />
+                  <TextField />
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="10.0" prefHeight="47.0" prefWidth="679.0" styleClass="Container">
+               <children>
+                  <RadioButton mnemonicParsing="false" />
+                  <TextField />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <HBox prefHeight="100.0" prefWidth="679.0" styleClass="Container">
+         <children>
+            <Button mnemonicParsing="false" onAction="#addQuestions" styleClass="Button" text="Thêm câu hỏi" />
+            <Button mnemonicParsing="false" onAction="#addChoices" styleClass="Button" text="Thêm phương án" />
+         </children>
+      </HBox>
         <TableView fx:id="tvQuestions" prefHeight="200.0" prefWidth="200.0" />
     </children>
 </VBox>
