@@ -29,6 +29,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -45,11 +46,19 @@ public class QuestionsController implements Initializable {
     @FXML
     private ComboBox<Level> cbLevels;
     @FXML
+    private ComboBox<Category> cbSearchCates;
+    @FXML
+    private ComboBox<Level> cbSearchLevels;
+    @FXML
     private TableView<Question> tvQuestions;
     @FXML
     private VBox vChoices;
     @FXML
     private TextArea txtContent;
+    @FXML
+    private ToggleGroup toggle;
+    @FXML
+    private TextField txtKeyWord;
 
     /**
      * Initializes the controller class.
@@ -63,10 +72,12 @@ public class QuestionsController implements Initializable {
         try {
             this.cbCates.setItems(FXCollections.observableArrayList(Configs.c.getCates()));
             this.cbLevels.setItems(FXCollections.observableArrayList(Configs.l.getLevels()));
-            this.tvQuestions.setItems(FXCollections.observableArrayList(Configs.q.getQuestion()));
+            this.cbSearchCates.setItems(FXCollections.observableArrayList(Configs.c.getCates()));
+            this.cbSearchLevels.setItems(FXCollections.observableArrayList(Configs.l.getLevels()));
         } catch (SQLException ex) {
-            Logger.getLogger(QuestionsController.class.getName()).log(Level.SEVERE, null, ex);
+
         }
+        loadTableQuestions();
     }
 
     private void loadColumns() {
@@ -83,6 +94,7 @@ public class QuestionsController implements Initializable {
         HBox h = new HBox();
         h.getStyleClass().add("Container");
         RadioButton r = new RadioButton();
+        r.setToggleGroup(toggle);
         TextField t = new TextField();
         h.getChildren().addAll(r, t);
         this.vChoices.getChildren().add(h);
@@ -117,7 +129,9 @@ public class QuestionsController implements Initializable {
 
     private void loadTableQuestions() {
         try {
-            this.tvQuestions.setItems(FXCollections.observableArrayList(Configs.q.getQuestion()));
+            this.tvQuestions.setItems(FXCollections.observableArrayList(Configs.q.getQuestion(this.txtKeyWord.getText(),
+                    this.cbSearchCates.getSelectionModel().getSelectedItem(),
+                    this.cbSearchLevels.getSelectionModel().getSelectedItem())));
         } catch (SQLException ex) {
             Logger.getLogger(QuestionsController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }

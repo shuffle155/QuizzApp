@@ -6,11 +6,12 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="526.0" prefWidth="725.0" styleClass="Container" stylesheets="@style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bts.quizzapp.QuestionsController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="634.0" prefWidth="717.0" styleClass="Container" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bts.quizzapp.QuestionsController">
     <children>
         <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Subject" text="Quản lý câu hỏi" />
         <TextArea fx:id="txtContent" prefHeight="116.0" prefWidth="600.0" promptText="Nội dung câu hỏi..." />
@@ -24,13 +25,16 @@
          <children>
             <HBox prefHeight="47.0" prefWidth="679.0" styleClass="Container">
                <children>
-                  <RadioButton mnemonicParsing="false" />
+                  <RadioButton mnemonicParsing="false">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="toggle" />
+                     </toggleGroup></RadioButton>
                   <TextField />
                </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="10.0" prefHeight="47.0" prefWidth="679.0" styleClass="Container">
                <children>
-                  <RadioButton mnemonicParsing="false" />
+                  <RadioButton mnemonicParsing="false" toggleGroup="$toggle" />
                   <TextField />
                </children>
             </HBox>
@@ -40,6 +44,13 @@
          <children>
             <Button mnemonicParsing="false" onAction="#addQuestions" styleClass="Button" text="Thêm câu hỏi" />
             <Button mnemonicParsing="false" onAction="#addChoices" styleClass="Button" text="Thêm phương án" />
+         </children>
+      </HBox>
+      <HBox prefHeight="0.0" prefWidth="722.0" styleClass="Container">
+         <children>
+            <TextField fx:id="txtKeyWord" />
+            <ComboBox fx:id="cbSearchCates" prefWidth="150.0" />
+            <ComboBox fx:id="cbSearchLevels" layoutX="160.0" layoutY="10.0" prefWidth="150.0" />
          </children>
       </HBox>
         <TableView fx:id="tvQuestions" prefHeight="200.0" prefWidth="200.0" />

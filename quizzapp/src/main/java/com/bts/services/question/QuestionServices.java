@@ -4,6 +4,8 @@
  */
 package com.bts.services.question;
 
+import com.bts.pojo.Category;
+import com.bts.pojo.Level;
 import com.bts.pojo.Question;
 import com.bts.utils.MyConnectionSingleton;
 import java.sql.Connection;
@@ -19,13 +21,33 @@ import java.util.List;
  */
 public class QuestionServices {
 
-    public List<Question> getQuestion() throws SQLException {
+    public List<Question> getQuestion(String kw, Category cate, Level lv) throws SQLException {
         Connection conn = MyConnectionSingleton.getInstance().connect();
-        String sql = "SELECT * FROM question ORDER BY id DESC";
-        PreparedStatement stm = conn.prepareCall(sql);
-        ResultSet res = stm.executeQuery();
+        String sql = "SELECT * FROM question WHERE 1=1";
         List<Question> questions = new ArrayList<>();
-
+        List<Object> params = new ArrayList<>();
+        
+        if(kw!=null&&!kw.isEmpty()) {
+            sql += " content like concat('%', ?, '%')";
+            params.add(kw);
+        }
+        
+        if(cate!=null) {
+            sql += " category_id = ?";
+            params.add(cate);
+        }
+        
+        if(lv!=null) {
+            sql += " level_id = ?";
+            params.add(lv);
+        }       
+        
+        PreparedStatement stm = conn.prepareCall(sql);
+        
+        for(int i = 0; i < params.size(); i++)
+            stm.setObject(i + 1, params.get(i));
+                
+        ResultSet res = stm.executeQuery();
         while (res.next()) {
             int id = res.getInt("id");
             String content = res.getString("content");
