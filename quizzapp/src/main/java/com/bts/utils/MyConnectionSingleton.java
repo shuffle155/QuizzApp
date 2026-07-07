@@ -30,7 +30,7 @@ public class MyConnectionSingleton {
     private MyConnectionSingleton() {
         try {
             this.conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/quizzapp",
-                    "root", "18012006Son!");
+                    "root", "root");
         } catch (SQLException ex) {
             Logger.getLogger(MyConnectionSingleton.class.getName()).log(Level.SEVERE, null, ex);
         }

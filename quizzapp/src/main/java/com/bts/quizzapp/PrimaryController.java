@@ -21,8 +21,8 @@ public class PrimaryController implements Initializable {
         MyStageSingleton.getInstance().showStage("questions");
     }
 
-    public void practice(ActionEvent act) {
-        MyAlertSingleton.getInstance().showMessage("2 Coming soon...");
+    public void practice(ActionEvent act) throws IOException {
+        MyStageSingleton.getInstance().showStage("practice");
     }
 
     public void exam(ActionEvent act) {
