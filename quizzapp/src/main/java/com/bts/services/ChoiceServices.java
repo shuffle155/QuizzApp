@@ -4,9 +4,8 @@
  */
 package com.bts.services;
 
-import com.bts.pojo.Level;
+import com.bts.pojo.Choice;
 import com.bts.utils.MyConnectionSingleton;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,21 +14,21 @@ import java.util.List;
 
 /**
  *
- * @author admin
+ * @author Thanh Son
  */
-public class LevelServices {
+public class ChoiceServices {
 
-    public List<Level> getLevels() throws SQLException {
-        String sql = "SELECT * FROM level";
+    public List<Choice> getChoices(int id) throws SQLException {
+        String sql = "SELECT * FROM choice WHERE question_id=?";
         PreparedStatement stm = MyConnectionSingleton.getInstance().connect().prepareCall(sql);
+        stm.setInt(1, id);
         ResultSet res = stm.executeQuery();
-        List<Level> levels = new ArrayList<>();
+        List<Choice> choices = new ArrayList<>();
 
         while (res.next()) {
-            int id = res.getInt("id");
-            String name = res.getString("name");
-            levels.add(new Level(id, name));
+            choices.add(new Choice(res.getInt("id"), res.getString("content"), res.getBoolean("is_correct")));
         }
-        return levels;
+
+        return choices;
     }
 }

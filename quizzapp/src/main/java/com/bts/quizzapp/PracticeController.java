@@ -8,7 +8,10 @@ import com.bts.pojo.Category;
 import com.bts.pojo.Level;
 import com.bts.pojo.Question;
 import com.bts.pojo.QuestionQueryBuilder;
+import com.bts.services.question.QuestionServices;
+import com.bts.services.question.QuestionServicesDecorator;
 import com.bts.utils.Configs;
+import com.bts.utils.MyAlertSingleton;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
@@ -18,8 +21,13 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.VBox;
 
 /**
  * FXML Controller class
@@ -34,10 +42,18 @@ public class PracticeController implements Initializable {
     private ComboBox<Level> cbSearchLevels;
     @FXML
     private TextField txtNum;
+    @FXML
+    private Label lbContent;
+    @FXML
+    private VBox vChoices;
     private List<Question> questions;
+    private int currIdx = -1;
 
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -54,6 +70,50 @@ public class PracticeController implements Initializable {
                 .withCategory(this.cbSearchCates.getSelectionModel().getSelectedItem())
                 .withLevel(this.cbSearchLevels.getSelectionModel().getSelectedItem());
         Configs.q.setQuery(b);
-        this.questions = Configs.q.getQuestion();
+        this.questions = new QuestionServicesDecorator(Configs.q).getQuestion();
+        this.loadQuestion(1);
+    }
+
+    public void next(ActionEvent e) {
+        this.loadQuestion(1);
+    }
+
+    public void checkAns(ActionEvent e) {
+        Question q = this.questions.get(this.currIdx);
+
+        for (int i = 0; i < this.vChoices.getChildren().size(); i++) {
+            RadioButton r = (RadioButton) this.vChoices.getChildren().get(i);
+
+            if (r.isSelected()) {
+                if (q.getChoices().get(i).isCorrect() == true) {
+                    MyAlertSingleton.getInstance().showMessage("CHINH XAC", Alert.AlertType.CONFIRMATION);
+                } else {
+                    MyAlertSingleton.getInstance().showMessage("SAI ROI", Alert.AlertType.ERROR);
+                }
+                break;
+            }
+        }
+    }
+
+    public void previous(ActionEvent e) {
+        this.loadQuestion(-1);
+    }
+
+    private void loadQuestion(int step) {
+        int nextIdx = this.currIdx + step;
+
+        if (nextIdx >= 0 && nextIdx < this.questions.size()) {
+            this.currIdx = nextIdx;
+            Question q = this.questions.get(this.currIdx);
+            this.lbContent.setText(q.getContent());
+            ToggleGroup toggle = new ToggleGroup();
+            this.vChoices.getChildren().clear();
+
+            for (var c : q.getChoices()) {
+                RadioButton r = new RadioButton(c.getContent());
+                r.setToggleGroup(toggle);
+                this.vChoices.getChildren().add(r);
+            }
+        }
     }
 }

@@ -20,9 +20,8 @@ import java.util.List;
 public class CategoryServices {
 
     public List<Category> getCates() throws SQLException {
-        Connection conn = MyConnectionSingleton.getInstance().connect();
         String sql = "SELECT * FROM category";
-        PreparedStatement stm = conn.prepareCall(sql);
+        PreparedStatement stm = MyConnectionSingleton.getInstance().connect().prepareCall(sql);
         ResultSet res = stm.executeQuery();
         List<Category> cates = new ArrayList<>();
 

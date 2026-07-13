@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author Thanh Son
  */
-public class QuestionServices {
+public class QuestionServices extends QuestionServicesBase {
 
     private QuestionQueryBuilder query;
 
@@ -27,6 +27,7 @@ public class QuestionServices {
     public QuestionServices() {
     }
 
+    @Override
     public List<Question> getQuestion() throws SQLException {
         PreparedStatement stm = this.query.build();
         ResultSet res = stm.executeQuery();
