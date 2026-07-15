@@ -6,30 +6,23 @@ package com.bts.services;
 
 import com.bts.pojo.Level;
 import com.bts.utils.MyConnectionSingleton;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
  * @author admin
  */
-public class LevelServices {
+public class LevelServices extends QueryServicesBase<Level> {
 
-    public List<Level> getLevels() throws SQLException {
-        String sql = "SELECT * FROM level";
-        PreparedStatement stm = MyConnectionSingleton.getInstance().connect().prepareCall(sql);
-        ResultSet res = stm.executeQuery();
-        List<Level> levels = new ArrayList<>();
+    @Override
+    public PreparedStatement getStm() throws SQLException {
+        return MyConnectionSingleton.getInstance().connect().prepareCall("SELECT * FROM level");
+    }
 
-        while (res.next()) {
-            int id = res.getInt("id");
-            String name = res.getString("name");
-            levels.add(new Level(id, name));
-        }
-        return levels;
+    @Override
+    public Level getObject(ResultSet res) throws SQLException {
+        return new Level(res.getInt("id"), res.getString("name"));
     }
 }

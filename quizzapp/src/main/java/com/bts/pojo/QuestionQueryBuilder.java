@@ -16,10 +16,10 @@ import java.util.List;
  */
 public class QuestionQueryBuilder {
 
-    private StringBuilder query;
-    private StringBuilder where;
+    private final StringBuilder query;
+    private final StringBuilder where;
     private String orderBy = "id DESC";
-    private List<Object> params;
+    private final List<Object> params;
 
     public QuestionQueryBuilder() {
         this.query = new StringBuilder("SELECT * FROM question WHERE 1=1 %s ORDER BY %s");
@@ -57,6 +57,16 @@ public class QuestionQueryBuilder {
         return this;
     }
 
+    public QuestionQueryBuilder withLevel(int levelId) {
+
+        if (levelId > 0) {
+            this.where.append(" AND level_id = ?");
+            params.add(levelId);
+        }
+
+        return this;
+    }
+
     public QuestionQueryBuilder setLimit(int limit) {
 
         if (!this.query.toString().toLowerCase().contains("limit")) {
@@ -86,7 +96,8 @@ public class QuestionQueryBuilder {
     /**
      * @param orderBy the orderBy to set
      */
-    public void setOrderBy(String orderBy) {
+    public QuestionQueryBuilder setOrderBy(String orderBy) {
         this.orderBy = orderBy;
+        return this;
     }
 }

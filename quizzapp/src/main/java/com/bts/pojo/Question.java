@@ -179,4 +179,8 @@ public class Question {
         this.choices = choices;
     }
 
+    @Override
+    public String toString() {
+        return this.content;
+    }
 }

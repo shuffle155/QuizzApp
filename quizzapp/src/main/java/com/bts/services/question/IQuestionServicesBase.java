@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Thanh Son
  */
-public abstract class QuestionServicesBase {
+public interface IQuestionServicesBase {
 
-    public abstract List<Question> getQuestion() throws SQLException;
+    public List<Question> getT() throws SQLException;
 }

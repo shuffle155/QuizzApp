@@ -9,6 +9,7 @@ import com.bts.pojo.Choice;
 import com.bts.pojo.Question;
 import com.bts.pojo.Level;
 import com.bts.pojo.QuestionQueryBuilder;
+import com.bts.services.FlyweightFactory;
 import com.bts.utils.Configs;
 import com.bts.utils.MyAlertSingleton;
 import java.net.URL;
@@ -72,10 +73,10 @@ public class QuestionsController implements Initializable {
         this.loadColumns();
         this.loadTableQuestions();
         try {
-            this.cbCates.setItems(FXCollections.observableArrayList(Configs.c.getCates()));
-            this.cbLevels.setItems(FXCollections.observableArrayList(Configs.l.getLevels()));
-            this.cbSearchCates.setItems(FXCollections.observableArrayList(Configs.c.getCates()));
-            this.cbSearchLevels.setItems(FXCollections.observableArrayList(Configs.l.getLevels()));
+            this.cbCates.setItems(FXCollections.observableArrayList(FlyweightFactory.getData(Configs.c, Configs.CATEGORY_KEY)));
+            this.cbLevels.setItems(FXCollections.observableArrayList(FlyweightFactory.getData(Configs.l, Configs.LEVEL_KEY)));
+            this.cbSearchCates.setItems(FXCollections.observableArrayList(FlyweightFactory.getData(Configs.c, Configs.CATEGORY_KEY)));
+            this.cbSearchLevels.setItems(FXCollections.observableArrayList(FlyweightFactory.getData(Configs.l, Configs.LEVEL_KEY)));
         } catch (SQLException ex) {
 
         }
@@ -146,7 +147,7 @@ public class QuestionsController implements Initializable {
                     .withCategory(this.cbSearchCates.getSelectionModel().getSelectedItem())
                     .withLevel(this.cbSearchLevels.getSelectionModel().getSelectedItem());
             Configs.q.setQuery(query);
-            this.tvQuestions.setItems(FXCollections.observableArrayList(Configs.q.getQuestion()));
+            this.tvQuestions.setItems(FXCollections.observableArrayList(Configs.q.getT()));
         } catch (SQLException ex) {
             Logger.getLogger(QuestionsController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }

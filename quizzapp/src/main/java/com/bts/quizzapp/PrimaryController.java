@@ -1,6 +1,5 @@
 package com.bts.quizzapp;
 
-import com.bts.utils.MyAlertSingleton;
 import com.bts.utils.MyStageSingleton;
 import com.bts.utils.themes.ThemeTypes;
 import java.io.IOException;
@@ -25,8 +24,8 @@ public class PrimaryController implements Initializable {
         MyStageSingleton.getInstance().showStage("practice");
     }
 
-    public void exam(ActionEvent act) {
-        MyAlertSingleton.getInstance().showMessage("3 Coming soon...");
+    public void exam(ActionEvent act) throws IOException {
+        MyStageSingleton.getInstance().showStage("exam");
     }
 
     @Override

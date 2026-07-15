@@ -5,7 +5,6 @@
 package com.bts.services.question;
 
 import com.bts.pojo.Question;
-import com.bts.services.ChoiceServices;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -13,24 +12,23 @@ import java.util.List;
  *
  * @author Thanh Son
  */
-public class QuestionServicesDecorator extends QuestionServicesBase {
-    
-    private QuestionServicesBase services;
-    
-    public QuestionServicesDecorator(QuestionServicesBase services) {
+public class QuestionServicesDecorator implements IQuestionServicesBase {
+
+    private final IQuestionServicesBase services;
+
+    public QuestionServicesDecorator(IQuestionServicesBase services) {
         this.services = services;
     }
-    
+
     @Override
-    public List<Question> getQuestion() throws SQLException {
-        List<Question> questions = this.services.getQuestion();
+    public List<Question> getT() throws SQLException {
+        List<Question> questions = this.services.getT();
         ChoiceServices cs = new ChoiceServices();
-        
+
         for (var q : questions) {
             q.setChoices(cs.getChoices(q.getId()));
         }
-        
+
         return questions;
     }
-    
 }

@@ -54,5 +54,4 @@ public class Level {
     public String toString() {
         return this.name; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
-
 }

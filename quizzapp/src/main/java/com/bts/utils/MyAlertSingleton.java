@@ -13,21 +13,23 @@ import javafx.scene.control.ButtonType;
  * @author admin
  */
 public class MyAlertSingleton {
+
     private static MyAlertSingleton instance;
     private final Alert alert;
-    
+
     private MyAlertSingleton() {
         alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("quizzapp");
         alert.setContentText("Quizz App");
     }
-    
+
     public static MyAlertSingleton getInstance() {
-        if(instance == null)
+        if (instance == null) {
             instance = new MyAlertSingleton();
+        }
         return instance;
     }
-    
+
     public void showMessage(String content) {
         this.alert.setContentText(content);
         this.alert.show();

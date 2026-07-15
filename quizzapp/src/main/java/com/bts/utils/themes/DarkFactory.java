@@ -16,5 +16,4 @@ public class DarkFactory extends ThemeAbstractFactory {
     public String getStyleSheet() {
         return App.class.getResource("darktheme.css").toExternalForm();
     }
-
 }

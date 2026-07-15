@@ -19,4 +19,8 @@ public class Configs {
     public static final LevelServices l = new LevelServices();
     public static final QuestionServices q = new QuestionServices();
     public static final UpdateQuestionServices u = new UpdateQuestionServices();
+    public static final String CATEGORY_KEY = "categories";
+    public static final String LEVEL_KEY = "levels";
+    public static final int EXAM_NUM = 10;
+    public static final double[] RATE = {0.4, 0.4, 0.2};
 }

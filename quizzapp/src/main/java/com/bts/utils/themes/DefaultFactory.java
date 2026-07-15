@@ -16,5 +16,4 @@ public class DefaultFactory extends ThemeAbstractFactory {
     public String getStyleSheet() {
         return App.class.getResource("style.css").toExternalForm();
     }
-
 }

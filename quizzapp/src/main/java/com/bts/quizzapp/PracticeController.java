@@ -8,7 +8,7 @@ import com.bts.pojo.Category;
 import com.bts.pojo.Level;
 import com.bts.pojo.Question;
 import com.bts.pojo.QuestionQueryBuilder;
-import com.bts.services.question.QuestionServices;
+import com.bts.services.FlyweightFactory;
 import com.bts.services.question.QuestionServicesDecorator;
 import com.bts.utils.Configs;
 import com.bts.utils.MyAlertSingleton;
@@ -58,8 +58,8 @@ public class PracticeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            this.cbSearchCates.setItems(FXCollections.observableArrayList(Configs.c.getCates()));
-            this.cbSearchLevels.setItems(FXCollections.observableArrayList(Configs.l.getLevels()));
+            this.cbSearchCates.setItems(FXCollections.observableArrayList(FlyweightFactory.getData(Configs.c, Configs.CATEGORY_KEY)));
+            this.cbSearchLevels.setItems(FXCollections.observableArrayList(FlyweightFactory.getData(Configs.l, Configs.LEVEL_KEY)));
         } catch (SQLException ex) {
             Logger.getLogger(PracticeController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -70,7 +70,7 @@ public class PracticeController implements Initializable {
                 .withCategory(this.cbSearchCates.getSelectionModel().getSelectedItem())
                 .withLevel(this.cbSearchLevels.getSelectionModel().getSelectedItem());
         Configs.q.setQuery(b);
-        this.questions = new QuestionServicesDecorator(Configs.q).getQuestion();
+        this.questions = new QuestionServicesDecorator(Configs.q).getT();
         this.loadQuestion(1);
     }
 
