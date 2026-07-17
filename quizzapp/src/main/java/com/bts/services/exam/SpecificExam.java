@@ -24,7 +24,7 @@ public class SpecificExam implements IExamStrategy {
     public SpecificExam(int num) {
         this.num = num;
     }
-    
+
     public SpecificExam(String num) {
         this.num = Integer.parseInt(num);
     }
@@ -33,7 +33,7 @@ public class SpecificExam implements IExamStrategy {
     public List<Question> getQuestions() {
         try {
             QuestionQueryBuilder question = new QuestionQueryBuilder().setLimit(this.num).setOrderBy("rand()");
-            return QuestionsFacade.getQuestions(question);
+            return QuestionsFacade.getLazyQuestions(question);
         } catch (SQLException ex) {
             Logger.getLogger(SpecificExam.class.getName()).log(Level.SEVERE, null, ex);
         }

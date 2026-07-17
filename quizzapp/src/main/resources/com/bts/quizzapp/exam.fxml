@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="Container" stylesheets="@style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bts.quizzapp.ExamController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="Container" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bts.quizzapp.ExamController">
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Subject" text="LUYỆN THI" />
       <HBox prefHeight="100.0" prefWidth="200.0" styleClass="Container">
@@ -22,8 +21,8 @@
       <ListView fx:id="lvQuestion" prefHeight="200.0" prefWidth="200.0" />
       <HBox prefHeight="100.0" prefWidth="200.0" styleClass="Container">
          <children>
-            <Button mnemonicParsing="false" styleClass="Button" text="Chấm điểm" />
-            <Button mnemonicParsing="false" styleClass="Button" text="Lưu đề thi" />
+            <Button mnemonicParsing="false" onAction="#grading" styleClass="Button" text="Chấm điểm" />
+            <Button mnemonicParsing="false" onAction="#saveExam" styleClass="Button" text="Lưu đề thi" />
          </children>
       </HBox>
    </children>
